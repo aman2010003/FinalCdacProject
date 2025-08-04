@@ -17,7 +17,7 @@ import com.mygaadi.dto.CarResponseDTO;
 import com.mygaadi.entities.Car;
 import com.mygaadi.entities.Image;
 import com.mygaadi.entities.User;
-
+import com.mygaadi.specification.CarSpecification;
 import com.mygaadi.custom_exceptions.ResourceNotFoundException;
 
 import org.modelmapper.ModelMapper;
@@ -97,5 +97,38 @@ public class CarServiceImpl implements CarService {
 
             return carDto;
         }).collect(Collectors.toList());
+    }
+    
+    
+    @Override
+    public List<CarResponseDTO> filterCars(CarFilterDTO filter) {
+        List<Car> cars = carDao.findAll(
+            CarSpecification.filterBy(filter),
+            Sort.by(Sort.Direction.DESC, "createdAt")
+        );
+        
+        List<CarResponseDTO> responseList = new ArrayList<>();
+
+        
+        for (Car car : cars) {
+        	
+        	  List<Image> list = imageDao.findAllByCar_CarId(car.getCarId());
+        	  
+        		List<CarImageDTO> newimages = new ArrayList<>();
+        		
+                for (Image image : list) {
+                    CarImageDTO dto = new CarImageDTO();
+                    dto.setImagebase64(Base64.getEncoder().encodeToString(image.getImage()));
+                    newimages.add(dto);
+                }
+                
+
+                CarResponseDTO newcar =	modelMapper.map(car, CarResponseDTO.class);
+                 newcar.setImages(newimages);  
+                 
+                 responseList.add(newcar);
+             }
+
+             return responseList;
     }
 }

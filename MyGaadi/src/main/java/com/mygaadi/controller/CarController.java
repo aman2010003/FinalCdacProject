@@ -55,4 +55,14 @@ public class CarController {
         return ResponseEntity.ok(carService.addCar(dto, images, sellerId));
     }
     
+
+    @GetMapping("/all")
+    public ResponseEntity<List<CarResponseDTO>> getAllCars() {
+        return ResponseEntity.ok(carService.getAllCars());
+    }
+    
+    @PostMapping("/filter")
+    public ResponseEntity<List<CarResponseDTO>> filterCars(@RequestBody CarFilterDTO filter) {
+        return ResponseEntity.ok(carService.filterCars(filter));
+    }
 }
