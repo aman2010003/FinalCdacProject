@@ -13,7 +13,8 @@ public interface UserService {
 	UserDTO signUp(SignupReqDTO dto);
     User getUserByEmail(String email);
     UserDTO getUserById(Long id);
-
+    UserDTO updateUser(Long id, SignupReqDTO dto);
+    
 	
     
 

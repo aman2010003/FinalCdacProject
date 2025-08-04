@@ -105,7 +105,20 @@ public class UserServiceImpl implements UserService {
     }
 	
 	
-
+    //Update user by id
+    @Override
+    public UserDTO updateUser(Long id, SignupReqDTO dto) {
+        User user = userDao.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setPhoneNo(dto.getPhoneNo());
+        if (dto.getPassword() != null && dto.getPassword().equals(dto.getConfirmPassword())) {
+            user.setPassword(dto.getPassword());
+        }
+        User saved = userDao.save(user);
+        return modelMapper.map(saved, UserDTO.class);
+    }
 
   
     
