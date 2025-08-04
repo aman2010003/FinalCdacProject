@@ -189,5 +189,17 @@ public class CarServiceImpl implements CarService {
 		carDao.deleteById(id);
 		return new ApiResponse("car was deleted");
 	}
+	
+
+
+	@Override
+	public ApiResponse updateCar(Long id, CarRequestDTO car) {
+		
+		Car oldcar = carDao.findById(id).orElseThrow(()-> new RuntimeException("invalid id"));
+		modelMapper.map(car, oldcar);
+		carDao.save(oldcar);
+		
+		return new ApiResponse("Success");
+	}
 
 }

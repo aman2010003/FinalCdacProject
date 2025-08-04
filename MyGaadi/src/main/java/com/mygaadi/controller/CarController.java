@@ -86,4 +86,13 @@ public class CarController {
 		return ResponseEntity.ok(carService.deleteCarById(id));
     	
     }
+    
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateCar(@PathVariable Long id,@RequestBody CarRequestDTO car)
+    {
+		return ResponseEntity.ok(carService.updateCar(id,car));
+    	
+    }
+
 }

@@ -20,4 +20,6 @@ public interface CarService {
     CarResponseDTO getCarById(Long id);
     List<CarResponseDTO> getCarsBySellerId(Long sellerId);
     ApiResponse deleteCarById(Long id);
+
+	ApiResponse updateCar(Long id, CarRequestDTO car);
 }
