@@ -178,4 +178,16 @@ public class CarServiceImpl implements CarService {
 
         return responseList;
     }
+    
+
+	@Override
+	public ApiResponse deleteCarById(Long id) {
+		Car car = carDao.findById(id)
+		.orElseThrow(() -> new ResourceNotFoundException("Car not found with ID " + id));
+		 List<Image> list = imageDao.findAllByCar_CarId(car.getCarId());
+		car.deleteImage(list);
+		carDao.deleteById(id);
+		return new ApiResponse("car was deleted");
+	}
+
 }

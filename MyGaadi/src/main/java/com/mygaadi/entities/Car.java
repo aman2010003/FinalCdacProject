@@ -58,4 +58,10 @@ public class Car {
     	this.list.add(image);
     	image.setCar(this);
     }
+    
+    
+    public void deleteImage(List<Image> list)
+    {
+    	list.forEach(image->image.setCar(null));
+    }
 }

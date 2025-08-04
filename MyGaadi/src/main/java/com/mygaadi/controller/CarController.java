@@ -78,4 +78,12 @@ public class CarController {
         Long sellerId = userService.getUserByEmail(email).getId();
         return ResponseEntity.ok(carService.getCarsBySellerId(sellerId));
     }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMyCar(@PathVariable Long id){
+ 
+        
+		return ResponseEntity.ok(carService.deleteCarById(id));
+    	
+    }
 }
