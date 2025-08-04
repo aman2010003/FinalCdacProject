@@ -11,6 +11,7 @@ import com.mygaadi.custom_exceptions.ResourceNotFoundException;
 import com.mygaadi.dao.UserDao;
 import com.mygaadi.dto.AuthResponseDTO;
 import com.mygaadi.dto.SignInDTO;
+import com.mygaadi.dto.SignupReqDTO;
 import com.mygaadi.dto.UserDTO;
 import com.mygaadi.entities.User;
 import com.mygaadi.security.JwtUtil;
@@ -72,6 +73,38 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+
+    @Override
+    public UserDTO signUp(SignupReqDTO dto) {
+        // Validate password match
+        if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+            throw new InvalidInputException("Password and confirm password do not match");
+        }
+        
+        // Check for existing email
+        if (userDao.existsByEmail(dto.getEmail())) {
+            throw new InvalidInputException("Email already in use");
+        }
+        
+        // Check for existing phone number
+        if (userDao.existsByPhoneNo(dto.getPhoneNo())) {
+            throw new InvalidInputException("Phone number already in use");
+        }
+        
+        // Map DTO to Entity
+        User user = modelMapper.map(dto, User.class);
+        
+        // Set additional fields if needed
+        user.setCreatedAt(java.time.LocalDate.now());
+        
+        // Save user
+        User savedUser = userDao.save(user);
+        
+        // Map Entity back to DTO for response
+        return modelMapper.map(savedUser, UserDTO.class);
+    }
+	
+	
 
 
   
