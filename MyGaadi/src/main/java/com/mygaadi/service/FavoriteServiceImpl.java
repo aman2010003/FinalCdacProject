@@ -32,6 +32,23 @@ public class FavoriteServiceImpl implements FavoriteService {
             .map(fav -> mapper.map(fav.getCar(), CarResponseDTO.class))
             .collect(Collectors.toList());
     }
+    
+    @Override
+    public void addFavorite(Long userId, Long carId) {
+        if (favoriteDao.existsByUser_IdAndCar_CarId(userId, carId)) return;
 
+        User user = userDao.findById(userId)
+                          .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Car car = carDao.findById(carId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Car not found"));
+
+        Favorite fav = new Favorite();
+        fav.setUser(user);
+        fav.setCar(car);
+        fav.setCreatedAt(LocalDateTime.now());
+        favoriteDao.save(fav);
+    }
+
+    
    
 }

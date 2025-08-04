@@ -17,5 +17,10 @@ public class FavoriteController {
         return ResponseEntity.ok(favoriteService.getUserFavorites(userId));
     }
 
+    @PostMapping("/{userId}/{carId}")
+    public ResponseEntity<Void> add(@PathVariable Long userId, @PathVariable Long carId) {
+        favoriteService.addFavorite(userId, carId);
+        return ResponseEntity.ok().build();
+    }
   
 }
