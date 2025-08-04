@@ -1,7 +1,9 @@
 package com.mygaadi.controller;
 
 import com.mygaadi.dto.AuthResponseDTO;
+import com.mygaadi.dto.ResponseDTO;
 import com.mygaadi.dto.SignInDTO;
+import com.mygaadi.dto.SignupReqDTO;
 import com.mygaadi.dto.UserDTO;
 import com.mygaadi.service.UserService;
 
