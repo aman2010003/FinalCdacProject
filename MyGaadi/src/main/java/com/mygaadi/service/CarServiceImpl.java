@@ -131,4 +131,26 @@ public class CarServiceImpl implements CarService {
 
              return responseList;
     }
+    
+    @Override
+    public CarResponseDTO getCarById(Long id) {
+        Car car = carDao.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Car not found with ID " + id));
+        
+        List<Image> images = imageDao.findAllByCar_CarId(car.getCarId());
+        
+    	List<CarImageDTO> newimages = new ArrayList<>();
+    	
+        CarResponseDTO newcar =	modelMapper.map(car, CarResponseDTO.class);
+        
+        for (Image image : images) {
+            CarImageDTO dto = new CarImageDTO();
+            dto.setImagebase64(Base64.getEncoder().encodeToString(image.getImage()));
+            newimages.add(dto);
+        }
+
+        newcar.setImages(newimages);
+        
+        return newcar;
+    }
 }

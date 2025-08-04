@@ -16,4 +16,5 @@ public interface CarService {
 	CarResponseDTO addCar(CarRequestDTO dto, MultipartFile[] images, Long sellerId);
     List<CarResponseDTO> getAllCars();
     List<CarResponseDTO> filterCars(CarFilterDTO filter);
+    CarResponseDTO getCarById(Long id);
 }
