@@ -49,6 +49,10 @@ public class FavoriteServiceImpl implements FavoriteService {
         favoriteDao.save(fav);
     }
 
+    @Override
+    public void removeFavorite(Long userId, Long carId) {
+        favoriteDao.deleteByUser_IdAndCar_CarId(userId, carId);
+    }
     
    
 }

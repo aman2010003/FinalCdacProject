@@ -22,5 +22,11 @@ public class FavoriteController {
         favoriteService.addFavorite(userId, carId);
         return ResponseEntity.ok().build();
     }
+    
+    @DeleteMapping("/{userId}/{carId}")
+    public ResponseEntity<Void> remove(@PathVariable Long userId, @PathVariable Long carId) {
+        favoriteService.removeFavorite(userId, carId);
+        return ResponseEntity.noContent().build();
+    }
   
 }
