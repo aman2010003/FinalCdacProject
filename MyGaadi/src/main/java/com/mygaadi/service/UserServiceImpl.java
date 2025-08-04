@@ -61,17 +61,22 @@ public class UserServiceImpl implements UserService {
         return new AuthResponseDTO(userDto, token);
     }
 
-	@Override
-	public User getUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    //get user by email
+    @Override
+    public User getUserByEmail(String email) {
+        return userDao.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
+    
+    
+    
+    
+    //get user By Id
+    @Override
+    public UserDTO getUserById(Long id) {
 
-	@Override
-	public UserDTO getUserById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        return null;
+    }
 
 
     @Override
