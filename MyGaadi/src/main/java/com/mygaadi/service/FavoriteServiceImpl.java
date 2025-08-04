@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class FavoriteServiceImpl implements FavoriteService {
 
     @Autowired private FavoriteDao favoriteDao;
-    @Autowired private CarDao carDao;
+    //@Autowired private CarDao carDao;
     @Autowired private UserDao userDao;
     @Autowired private ModelMapper mapper;
 
