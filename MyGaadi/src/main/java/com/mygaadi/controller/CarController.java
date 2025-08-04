@@ -70,4 +70,12 @@ public class CarController {
     public ResponseEntity<CarResponseDTO> getCarById(@PathVariable Long id) {
         return ResponseEntity.ok(carService.getCarById(id));
     }
+    
+    @GetMapping("/my")
+    public ResponseEntity<List<CarResponseDTO>> getMyCars(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.substring(7);
+        String email = jwtUtil.extractEmail(token);
+        Long sellerId = userService.getUserByEmail(email).getId();
+        return ResponseEntity.ok(carService.getCarsBySellerId(sellerId));
+    }
 }

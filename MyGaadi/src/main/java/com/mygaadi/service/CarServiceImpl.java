@@ -153,4 +153,29 @@ public class CarServiceImpl implements CarService {
         
         return newcar;
     }
+    
+    @Override
+    public List<CarResponseDTO> getCarsBySellerId(Long sellerId) {
+        List<Car> cars = carDao.findBySellerId(sellerId);
+        
+        List<CarResponseDTO> responseList = new ArrayList<>();
+
+        for (Car car : cars) {
+            List<Image> images = imageDao.findAllByCar_CarId(car.getCarId());
+
+            List<CarImageDTO> imageDTOs = images.stream()
+                .map(img -> {
+                    CarImageDTO dto = new CarImageDTO();
+                    dto.setImagebase64(Base64.getEncoder().encodeToString(img.getImage()));
+                    return dto;
+                }).collect(Collectors.toList());
+
+            CarResponseDTO dto = modelMapper.map(car, CarResponseDTO.class);
+            dto.setImages(imageDTOs);
+
+            responseList.add(dto);
+        }
+
+        return responseList;
+    }
 }
