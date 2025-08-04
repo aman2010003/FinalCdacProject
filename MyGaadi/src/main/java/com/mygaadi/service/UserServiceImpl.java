@@ -74,10 +74,11 @@ public class UserServiceImpl implements UserService {
     //get user By Id
     @Override
     public UserDTO getUserById(Long id) {
-
-        return null;
+        User user = userDao.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found with ID " + id));
+        return modelMapper.map(user, UserDTO.class);
     }
-
+    
 
     @Override
     public UserDTO signUp(SignupReqDTO dto) {
