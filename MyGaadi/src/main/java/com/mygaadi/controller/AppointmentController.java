@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import com.mygaadi.custom_exceptions.DuplicateAppointmentException;
 import com.mygaadi.custom_exceptions.ResourceNotFoundException;
 import com.mygaadi.dao.UserDao;
 import com.mygaadi.dto.AppointmentRequestDTO;
+import com.mygaadi.dto.UpdateStatusDTO;
+import com.mygaadi.entities.AppointmentStatus;
 import com.mygaadi.entities.User;
 import com.mygaadi.security.JwtUtil;
 import com.mygaadi.service.AppointmentService;
@@ -77,10 +80,14 @@ public class AppointmentController {
 		
 	}
 	
-	public ResponseEntity<?> updateAppointmentsStatusById(@PathVariable("id") Long id)
+		@PutMapping("/update/{id}")
+		public ResponseEntity<?> updateAppointmentsStatusById(@PathVariable("id") Long id,
+			@RequestBody UpdateStatusDTO dto)
 	{
+			String status = dto.getStatus();
+			System.out.println(status);
 		
-		return ResponseEntity.ok(appointmentservice.updateStatus(id));
+		return ResponseEntity.ok(appointmentservice.updateStatus(id, status));
 		
 	}
 	

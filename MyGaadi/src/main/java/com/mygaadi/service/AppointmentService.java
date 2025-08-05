@@ -6,6 +6,7 @@ import com.mygaadi.custom_exceptions.DuplicateAppointmentException;
 import com.mygaadi.dto.ApiResponse;
 import com.mygaadi.dto.AppointmentRequestDTO;
 import com.mygaadi.dto.AppointmentResponseDTO;
+import com.mygaadi.entities.AppointmentStatus;
 import com.mygaadi.entities.User;
 
 public interface AppointmentService {
@@ -18,6 +19,6 @@ public interface AppointmentService {
 	
 	public List<AppointmentResponseDTO> getAppointmentBySellerId(Long userId);
 
-	public ApiResponse updateStatus(Long id);
+	public ApiResponse updateStatus(Long id, String status);
 	
 }

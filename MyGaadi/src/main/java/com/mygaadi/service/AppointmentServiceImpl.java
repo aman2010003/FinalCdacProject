@@ -178,9 +178,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public ApiResponse updateStatus(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ApiResponse updateStatus(Long id, String status) {
+		Appointment appmnt = appointmentDao.findById(id).orElseThrow(()->new ResourceNotFoundException("Appointment not found"));
+		
+		appmnt.setStatus(AppointmentStatus.valueOf(status));
+		return new ApiResponse(appmnt.getId()+" was updated successfully");
 	}
 
 }
