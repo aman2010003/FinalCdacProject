@@ -3,6 +3,7 @@ package com.mygaadi.controller;
 import java.io.IOException;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,5 +46,44 @@ public class AppointmentController {
 		return ResponseEntity.ok(appointmentservice.addAppointment(user	, carId ,request));
 		
 	}
+	
+	@GetMapping("/")
+	public ResponseEntity<?> fetchAllAppointment()
+	{
+		
+		return ResponseEntity.ok(appointmentservice.getAllAppointment());
+		
+	}
+	
+	@GetMapping
+	public ResponseEntity<?> fetchAppointmentByUserId(@RequestHeader("Authorization") String authHeader)
+	{
+		 String token = authHeader.substring(7);
+	        String email = jwtUtil.extractEmail(token);
+	        User user = userService.getUserByEmail(email);
+	        		
+		return ResponseEntity.ok(appointmentservice.getAppointmentByUserId(user.getId()));
+		
+	}
+	
+	@GetMapping("/manage")
+	public ResponseEntity<?> fetchAppointmentBySellerId(@RequestHeader("Authorization") String authHeader)
+	{
+		 String token = authHeader.substring(7);
+	        String email = jwtUtil.extractEmail(token);
+	        User user = userService.getUserByEmail(email);
+	        		
+		return ResponseEntity.ok(appointmentservice.getAppointmentBySellerId(user.getId()));
+		
+	}
+	
+	public ResponseEntity<?> updateAppointmentsStatusById(@PathVariable("id") Long id)
+	{
+		
+		return ResponseEntity.ok(appointmentservice.updateStatus(id));
+		
+	}
+	
+	
 
 }

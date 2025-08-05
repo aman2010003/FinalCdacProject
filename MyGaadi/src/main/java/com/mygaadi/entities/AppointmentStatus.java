@@ -1,6 +1,6 @@
 package com.mygaadi.entities;
 
-public enum AppoinmentStatus {
+public enum AppointmentStatus {
 PENDING,
 CONFIRMED,
 CANCELLED,

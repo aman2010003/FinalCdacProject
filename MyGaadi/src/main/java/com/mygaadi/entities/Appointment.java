@@ -41,7 +41,7 @@ public class Appointment {
     private LocalTime appointmentTime;
     
     @Enumerated(EnumType.STRING)
-    private AppoinmentStatus status;
+    private AppointmentStatus status;
     
     @PrePersist
     protected void onCreate() {

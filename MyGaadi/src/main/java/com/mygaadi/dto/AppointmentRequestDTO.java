@@ -10,7 +10,6 @@ import lombok.Data;
 @Data
 public class AppointmentRequestDTO {
 	
-	
     private String location;
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;

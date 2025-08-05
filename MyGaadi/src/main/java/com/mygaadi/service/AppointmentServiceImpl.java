@@ -2,6 +2,8 @@ package com.mygaadi.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,8 @@ import com.mygaadi.dao.CarDao;
 import com.mygaadi.dao.UserDao;
 import com.mygaadi.dto.ApiResponse;
 import com.mygaadi.dto.AppointmentRequestDTO;
-import com.mygaadi.entities.AppoinmentStatus;
+import com.mygaadi.dto.AppointmentResponseDTO;
+import com.mygaadi.entities.AppointmentStatus;
 import com.mygaadi.entities.Appointment;
 import com.mygaadi.entities.Car;
 import com.mygaadi.entities.User;
@@ -49,7 +52,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		appointment.setAppointmentTime(request.getAppointmentTime());
 		appointment.setLocation(request.getLocation());
 		appointment.setType(request.getType());
-		appointment.setStatus(AppoinmentStatus.PENDING);
+		appointment.setStatus(AppointmentStatus.PENDING);
 		appointment.setCreatedAt(LocalDateTime.now());
 		try {
 		    appointmentDao.save(appointment);
@@ -58,6 +61,126 @@ public class AppointmentServiceImpl implements AppointmentService {
 		}
 
 		return new ApiResponse("Appointment was Added Successfully BuyerID :"+user.getId()+" sellerId :"+seller.getId());
+	}
+
+	@Override
+	public List<AppointmentResponseDTO> getAllAppointment() {
+		List<Appointment> list = appointmentDao.findAll();
+		List<AppointmentResponseDTO> newlist = new ArrayList<>();
+
+		for (Appointment appointment : list) {
+		    AppointmentResponseDTO dto = AppointmentResponseDTO.builder()
+		        .id(appointment.getId())
+		        
+		        
+		        .buyerName(appointment.getBuyer().getName())
+		        .buyerEmail(appointment.getBuyer().getEmail())
+
+		       
+		        .sellerName(appointment.getSeller().getName())
+		        .sellerEmail(appointment.getSeller().getEmail())
+
+		      
+		        .carBrand(appointment.getCar().getBrand())
+		        .carModel(appointment.getCar().getModel())
+		        .carVariant(appointment.getCar().getVariant())
+
+		        // Appointment details
+		        .location(appointment.getLocation())
+		        .appointmentDate(appointment.getAppointmentDate())
+		        .appointmentTime(appointment.getAppointmentTime())
+		        .createdAt(appointment.getCreatedAt())
+		        .type(appointment.getType())
+		        .status(appointment.getStatus())
+
+		        .build();
+
+		    newlist.add(dto);
+		}
+
+		return newlist;
+	}
+
+	@Override
+	public List<AppointmentResponseDTO> getAppointmentByUserId(Long userId) {
+		List<Appointment> byBuyer_Id = appointmentDao.findByBuyer_Id(userId);
+		List<AppointmentResponseDTO> newlist = new ArrayList<>();
+
+		for (Appointment appointment : byBuyer_Id) {
+		    AppointmentResponseDTO dto = AppointmentResponseDTO.builder()
+		        .id(appointment.getId())
+		        
+		        
+		        .buyerName(appointment.getBuyer().getName())
+		        .buyerEmail(appointment.getBuyer().getEmail())
+
+		       
+		        .sellerName(appointment.getSeller().getName())
+		        .sellerEmail(appointment.getSeller().getEmail())
+
+		      
+		        .carBrand(appointment.getCar().getBrand())
+		        .carModel(appointment.getCar().getModel())
+		        .carVariant(appointment.getCar().getVariant())
+
+		        // Appointment details
+		        .location(appointment.getLocation())
+		        .appointmentDate(appointment.getAppointmentDate())
+		        .appointmentTime(appointment.getAppointmentTime())
+		        .createdAt(appointment.getCreatedAt())
+		        .type(appointment.getType())
+		        .status(appointment.getStatus())
+
+		        .build();
+		
+
+		    newlist.add(dto);
+		}
+		return newlist;
+	}
+
+	@Override
+	public List<AppointmentResponseDTO> getAppointmentBySellerId(Long sellerId) {
+		List<Appointment> bySellerId = appointmentDao.findBySeller_Id(sellerId);
+		List<AppointmentResponseDTO> newlist = new ArrayList<>();
+
+		for (Appointment appointment : bySellerId) {
+		    AppointmentResponseDTO dto = AppointmentResponseDTO.builder()
+		        .id(appointment.getId())
+		        
+		        
+		        .buyerName(appointment.getBuyer().getName())
+		        .buyerEmail(appointment.getBuyer().getEmail())
+
+		       
+		        .sellerName(appointment.getSeller().getName())
+		        .sellerEmail(appointment.getSeller().getEmail())
+
+		      
+		        .carBrand(appointment.getCar().getBrand())
+		        .carModel(appointment.getCar().getModel())
+		        .carVariant(appointment.getCar().getVariant())
+
+		        // Appointment details
+		        .location(appointment.getLocation())
+		        .appointmentDate(appointment.getAppointmentDate())
+		        .appointmentTime(appointment.getAppointmentTime())
+		        .createdAt(appointment.getCreatedAt())
+		        .type(appointment.getType())
+		        .status(appointment.getStatus())
+
+		        .build();
+		
+
+		    newlist.add(dto);
+		}
+		return newlist;
+	}
+
+	@Override
+	public ApiResponse updateStatus(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
