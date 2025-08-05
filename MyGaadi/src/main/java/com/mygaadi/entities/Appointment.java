@@ -3,7 +3,10 @@ package com.mygaadi.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(
@@ -28,14 +31,26 @@ public class Appointment {
     private Car car;
 
     @Column(nullable = false)
-    private String message;
+    private String location;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    private LocalDate appointmentDate;
+
+    private LocalTime appointmentTime;
+    
+    @Enumerated(EnumType.STRING)
+    private AppoinmentStatus status;
+    
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
+    
+    @Enumerated(EnumType.STRING)
+    private AppointmentType type;
+    
+ 
 }
 

@@ -36,17 +36,13 @@ public class AppointmentController {
 	public ResponseEntity<?> addAppointment
 	(@PathVariable Long carId,
 			@RequestHeader("Authorization") String authHeader,
-			@RequestBody AppointmentRequestDTO message) throws IOException, DuplicateAppointmentException
+			@RequestBody AppointmentRequestDTO request) throws IOException, DuplicateAppointmentException
 	{
 		 String token = authHeader.substring(7);
 	        String email = jwtUtil.extractEmail(token);
-
-	     
-		String msg = message.getMessage();
 	        User user = userService.getUserByEmail(email);
-
-		
-		return ResponseEntity.ok(appointmentservice.addAppointment(user	, carId ,msg));
+	        		
+		return ResponseEntity.ok(appointmentservice.addAppointment(user	, carId ,request));
 		
 	}
 
