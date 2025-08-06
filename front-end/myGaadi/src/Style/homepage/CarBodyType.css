@@ -1,0 +1,192 @@
+/* Container holding the entire car section */
+.car-container {
+  padding: 32px 0;
+  background: linear-gradient(90deg, #e6f0ff 0%, #f0f4fa 100%);
+}
+
+/* Heading */
+.car-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #2563eb;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* Scroll container and arrows */
+.scroll-container-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Center the cards horizontally */
+.scroll-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 32px;
+  width: 100%;
+  padding: 16px 0;
+  overflow: hidden;
+}
+
+/* Arrows */
+.scroll-arrow {
+  font-size: 36px;
+  color: #2563eb;
+  background: linear-gradient(90deg, #e6f0ff 0%, #60a5fa 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 12px;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+  border: none;
+  opacity: 0.92;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scroll-arrow:hover {
+  color: #fff;
+  background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+  opacity: 1;
+  transform: scale(1.12);
+}
+.scroll-arrow.left {
+  position: absolute;
+  left: 8px;
+  z-index: 1;
+}
+.scroll-arrow.right {
+  position: absolute;
+  right: 8px;
+  z-index: 1;
+}
+
+/* Individual car card */
+.car-card.horizontal {
+  position: relative;
+  background: #fff;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.1);
+  transition: box-shadow 0.2s, border 0.2s, transform 0.2s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+.car-card.horizontal:hover {
+  box-shadow: 0 16px 48px rgba(37, 99, 235, 0.18);
+  border: 2px solid #2563eb;
+  transform: scale(1.06);
+}
+
+/* Clickable car info wrapper */
+.car-clickable {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Car image styling */
+.car-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-bottom: 1px solid #e6f0ff;
+  border-radius: 14px 14px 0 0;
+  background: #e6f0ff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+}
+
+.no-image {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e6f0ff;
+  color: #2563eb;
+  font-size: 1.1rem;
+  border-radius: 14px 14px 0 0;
+  font-weight: 600;
+}
+
+/* Car details/info */
+.car-info {
+  padding: 14px 18px;
+  font-size: 15px;
+  color: #444;
+  width: 100%;
+  text-align: center;
+}
+
+.car-info h3 {
+  font-size: 1.15rem;
+  margin: 0 0 8px;
+  color: #2563eb;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.car-info p {
+  margin: 2px 0;
+  color: #666;
+  font-size: 1rem;
+}
+
+.car-info p:first-of-type {
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+/* Wishlist heart icon */
+.wishlist-icon {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 28px;
+  z-index: 2;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+  color: #2563eb;
+}
+.wishlist-icon:hover {
+  transform: scale(1.18);
+  color: #60a5fa;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .car-container {
+    padding: 12px 0;
+  }
+  .scroll-container {
+    gap: 16px;
+    padding: 10px 0;
+  }
+  .car-card.horizontal {
+    min-width: 180px;
+    max-width: 180px;
+    padding: 10px 4px;
+  }
+  .car-image,
+  .no-image {
+    height: 90px;
+    border-radius: 8px 8px 0 0;
+  }
+  .scroll-arrow {
+    font-size: 24px;
+    padding: 6px;
+  }
+}

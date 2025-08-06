@@ -1,0 +1,55 @@
+import com.mygaadi.dto.CarRequestDTO;
+import com.mygaadi.dto.CarResponseDTO;
+import com.mygaadi.entities.Car;
+import com.mygaadi.entities.User;
+
+import com.mygaadi.security.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
+
+@Service
+public class CarServiceImpl implements CarService {
+
+    @Autowired
+    private CarRepository carRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Override
+    public CarResponseDTO addCar(CarRequestDTO dto, MultipartFile[] images, String token) {
+        String email = jwtUtil.extractEmail(token.replace("Bearer ", ""));
+        User seller = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+
+        Car car = new Car();
+        car.setSeller(seller);
+        car.setBrand(dto.getBrand());
+        car.setModel(dto.getModel());
+        car.setVariant(dto.getVariant());
+        car.setRegistrationYear(dto.getRegistrationYear());
+        car.setOwnership(dto.getOwnership());
+        car.setKmDriven(dto.getKmDriven());
+        car.setLocation(dto.getLocation());
+        car.setPrice(dto.getPrice());
+        car.setRegistrationNumber(dto.getRegistrationNumber());
+        car.setColor(dto.getColor());
+        car.setInsuranceValid(dto.isInsuranceValid());
+        car.setFuelType(dto.getFuelType());
+        car.setTransmission(dto.getTransmission());
+        car.setDescription(dto.getDescription());
+        car.setCreatedAt(LocalDateTime.now());
+
+        Car savedCar = carRepository.save(car);
+
+        // You can also save images here if needed
+
+        return new CarResponseDTO(savedCar.getCarId(), "Car added successfully");
+    }
+}

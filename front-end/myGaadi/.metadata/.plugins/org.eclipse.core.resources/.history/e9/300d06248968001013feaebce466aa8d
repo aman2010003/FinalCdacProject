@@ -1,0 +1,27 @@
+package com.mygaadi.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mygaadi.dto.CarRequestDTO;
+import com.mygaadi.dto.CarResponseDTO;
+import com.mygaadi.service.CarService;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
+@RestController
+@RequestMapping("/cars")
+public class CarController {
+    @Autowired
+    private CarService carService;
+
+    @PostMapping("/add")
+    public ResponseEntity<CarResponseDTO> addCar(@RequestBody CarRequestDTO dto) {
+        CarResponseDTO savedCar = carService.addCar(dto);
+        return ResponseEntity.ok(savedCar);
+    }
+
+}
