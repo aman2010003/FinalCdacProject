@@ -40,6 +40,9 @@ public class UserServiceImpl implements UserService {
     
     
     
+    
+    
+    
     //Logic For JWT Token
     
     
@@ -61,24 +64,6 @@ public class UserServiceImpl implements UserService {
         return new AuthResponseDTO(userDto, token);
     }
 
-    //get user by email
-    @Override
-    public User getUserByEmail(String email) {
-        return userDao.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
-    }
-    
-    
-    
-    
-    //get user By Id
-    @Override
-    public UserDTO getUserById(Long id) {
-        User user = userDao.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found with ID " + id));
-        return modelMapper.map(user, UserDTO.class);
-    }
-    
 
     @Override
     public UserDTO signUp(SignupReqDTO dto) {
@@ -109,8 +94,33 @@ public class UserServiceImpl implements UserService {
         // Map Entity back to DTO for response
         return modelMapper.map(savedUser, UserDTO.class);
     }
-	
-	
+    
+    // Additional methods can be added here as needed
+    
+    
+    
+    
+    
+    //get user by email
+    @Override
+    public User getUserByEmail(String email) {
+        return userDao.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
+    
+    
+    
+    
+    //get user By Id
+    @Override
+    public UserDTO getUserById(Long id) {
+        User user = userDao.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found with ID " + id));
+        return modelMapper.map(user, UserDTO.class);
+    }
+    
+    
+    
     //Update user by id
     @Override
     public UserDTO updateUser(Long id, SignupReqDTO dto) {
@@ -125,9 +135,14 @@ public class UserServiceImpl implements UserService {
         User saved = userDao.save(user);
         return modelMapper.map(saved, UserDTO.class);
     }
-
-  
     
- 
+    
+    
+    //for profile update 
+    @Override
+    public User updateUser(User user) {
+        return userDao.save(user);
+    }
+
 
 }
