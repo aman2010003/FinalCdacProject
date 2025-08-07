@@ -32,7 +32,7 @@ public class FavoriteServiceImpl implements FavoriteService {
             .map(fav -> mapper.map(fav.getCar(), CarResponseDTO.class))
             .collect(Collectors.toList());
     }
-    
+
     @Override
     public void addFavorite(Long userId, Long carId) {
         if (favoriteDao.existsByUser_IdAndCar_CarId(userId, carId)) return;
@@ -53,6 +53,4 @@ public class FavoriteServiceImpl implements FavoriteService {
     public void removeFavorite(Long userId, Long carId) {
         favoriteDao.deleteByUser_IdAndCar_CarId(userId, carId);
     }
-    
-   
 }
