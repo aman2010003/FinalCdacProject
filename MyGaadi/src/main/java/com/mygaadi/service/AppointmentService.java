@@ -11,7 +11,7 @@ import com.mygaadi.entities.User;
 
 public interface AppointmentService {
 	
-	public ApiResponse addAppointment(User userId,Long sellerId, AppointmentRequestDTO request) throws DuplicateAppointmentException;
+	public ApiResponse addAppointment(User userId,Long sellerId, AppointmentRequestDTO request, String email) throws DuplicateAppointmentException;
 
 	public List<AppointmentResponseDTO> getAllAppointment();
 	

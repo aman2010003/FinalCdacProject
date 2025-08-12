@@ -1,7 +1,8 @@
 package com.mygaadi.service;
 
+import com.mygaadi.dto.ApiResponse;
 import com.mygaadi.dto.InquiryRequestDTO;
 
 public interface InquiryService {
-    void sendInquiry(InquiryRequestDTO dto);
+    ApiResponse sendInquiry(InquiryRequestDTO dto);
 }

@@ -1,0 +1,11 @@
+.city-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.city-input-wrapper select,
+.city-input-wrapper input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/inquiries")
+@RequestMapping("/inquiries")
 public class InquiryController {
     @Autowired private InquiryService inquiryService;
 
     @PostMapping("/send")
     public ResponseEntity<ApiResponse> send(@RequestBody InquiryRequestDTO dto) {
-        inquiryService.sendInquiry(dto);
-        return ResponseEntity.ok(new ApiResponse("Inquiry sent successfully"));
+        ;
+        return ResponseEntity.ok(inquiryService.sendInquiry(dto));
     }
 }

@@ -1,0 +1,93 @@
+.navbar {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Left section */
+.navbar__left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo-btn {
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.navbar__logo {
+  height: 32px;
+}
+
+.navbar__brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.navbar__tagline {
+  font-size: 10px;
+  color: #888;
+  font-weight: 600;
+}
+
+/* Right section */
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Logout Button */
+.navbar__logout {
+  background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+  color: white;
+  border: none;
+  border-radius: 22px;
+  padding: 8px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 88, 88, 0.12);
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar__logout:hover {
+  opacity: 0.9;
+}
+
+/* Icons */
+.navbar__wishlist-icon,
+.navbar__profile-icon {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar__wishlist-icon {
+  color: #ff5858;
+  font-size: 60px;
+}
+
+.navbar__wishlist-icon:hover {
+  color: #d32f2f;
+}
+
+.navbar__profile-icon {
+  color: #007bff;
+
+  width: 90px;
+
+  font-size: 70px;
+}
+
+.navbar__profile-icon:hover {
+  color: #ff5858;
+}
