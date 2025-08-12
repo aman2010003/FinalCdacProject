@@ -34,6 +34,13 @@ public class User {
     @Transient
     private String confirmPassword;
     
+    @Enumerated(EnumType.STRING)
+    private UserType type = UserType.USER;
+    
+    @Enumerated(EnumType.STRING)
+    private UserStatus status = UserStatus.ACTIVE;
+    
+    
     @Column(name = "created_at")
     private LocalDate createdAt;
 }

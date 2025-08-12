@@ -2,6 +2,7 @@ package com.mygaadi.controller;
 
 import java.io.IOException;
 
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.mygaadi.entities.AppointmentStatus;
 import com.mygaadi.entities.User;
 import com.mygaadi.security.JwtUtil;
 import com.mygaadi.service.AppointmentService;
+import com.mygaadi.service.EmailService;
 import com.mygaadi.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +38,7 @@ public class AppointmentController {
 	
 	private final AppointmentService appointmentservice;
 	
+	
 	@PostMapping("/{carId}")
 	public ResponseEntity<?> addAppointment
 	(@PathVariable Long carId,
@@ -46,7 +49,7 @@ public class AppointmentController {
 	        String email = jwtUtil.extractEmail(token);
 	        User user = userService.getUserByEmail(email);
 	        		
-		return ResponseEntity.ok(appointmentservice.addAppointment(user	, carId ,request));
+		return ResponseEntity.ok(appointmentservice.addAppointment(user	, carId ,request, email));
 		
 	}
 	

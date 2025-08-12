@@ -5,6 +5,7 @@ package com.mygaadi.service;
 import com.mygaadi.dao.CarDao;
 import com.mygaadi.dao.InquiryDao;
 import com.mygaadi.dao.UserDao;
+import com.mygaadi.dto.ApiResponse;
 import com.mygaadi.dto.InquiryRequestDTO;
 import com.mygaadi.entities.Car;
 import com.mygaadi.entities.Inquiry;
@@ -22,17 +23,25 @@ public class InquiryServiceImpl implements InquiryService {
     @Autowired private CarDao carDao;
 
     @Override
-    public void sendInquiry(InquiryRequestDTO dto) {
+    public ApiResponse sendInquiry(InquiryRequestDTO dto) {
         User from = userDao.findById(dto.getFromUserId())
                            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        
+        
         Car car = carDao.findById(dto.getCarId())
                         .orElseThrow(() -> new ResourceNotFoundException("Car not found"));
+        
+        User seller = userDao.findById(car.getSeller().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        
         Inquiry inq = new Inquiry();
         inq.setFromUserId(dto.getFromUserId());
         inq.setToSellerId(car.getSeller().getId());
         inq.setCarId(dto.getCarId());
         inq.setMessage(dto.getMessage());
         inq.setCreatedAt(LocalDateTime.now());
-        inquiryDao.save(inq);
+//        inquiryDao.save(inq);
+        
+        return new ApiResponse("Name : "+seller.getName()+" , Email : "+seller.getEmail()+" , Phone : "+seller.getPhoneNo());
     }
 }

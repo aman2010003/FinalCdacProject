@@ -35,8 +35,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 	
 	private final AppointmentDao appointmentDao;
 	
+	private final EmailService emailService;
+	
 	@Override
-	public ApiResponse addAppointment(User user, Long carId, AppointmentRequestDTO request) throws DuplicateAppointmentException {
+	public ApiResponse addAppointment(User user, Long carId, AppointmentRequestDTO request, String usermail) throws DuplicateAppointmentException {
 		
 		Car car =carDao.findById(carId).orElseThrow(()->new ResourceNotFoundException("Invalid carId"));
 		 User seller = car.getSeller();
@@ -44,6 +46,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		 if (user.getId().equals(seller.getId())) {
 		        throw new IllegalArgumentException("Buyer and seller cannot be the same user.");
 		    }	 
+		 System.out.println(usermail);
 		Appointment appointment = new Appointment();
 		appointment.setCar(car);
 		appointment.setBuyer(user);;
@@ -56,6 +59,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 		appointment.setCreatedAt(LocalDateTime.now());
 		try {
 		    appointmentDao.save(appointment);
+		    emailService.sendSellerEmail(request, carId);
+		    emailService.sendBuyerEmail(usermail, carId);
 		} catch (DataIntegrityViolationException ex) {
 		    throw new DuplicateAppointmentException("Appointment already exists");
 		}

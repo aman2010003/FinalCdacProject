@@ -1,7 +1,7 @@
 package com.mygaadi.controller;
 
 import com.mygaadi.dto.AuthResponseDTO;
-import com.mygaadi.dto.ResponseDTO;
+import com.mygaadi.dto.ResponseDTO; 
 import com.mygaadi.dto.SignInDTO;
 import com.mygaadi.dto.SignupReqDTO;
 import com.mygaadi.dto.UserDTO;
@@ -27,7 +27,7 @@ public class UserController {
         AuthResponseDTO response = userService.signIn(dto);
         return ResponseEntity.ok(response);
     }
-    
+
     @PostMapping("/signup")
     public ResponseEntity<ResponseDTO<UserDTO>> signupUser(@RequestBody @Valid SignupReqDTO dto) {
         UserDTO userDto = userService.signUp(dto);
@@ -42,10 +42,21 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody SignupReqDTO dto) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO dto) {
         return ResponseEntity.ok(userService.updateUser(id, dto));
     }
-   
+    
+    @GetMapping("/admin/{id}")
+    public ResponseEntity<UserDTO> getUserAdmin(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+    
+    @PutMapping("/admin/{id}")
+    public ResponseEntity<UserDTO> updateUserAdmin(@PathVariable Long id, @RequestBody UserDTO dto) {
+        return ResponseEntity.ok(userService.updateUser(id, dto));
+    }
+    
+    
     
     
 }
